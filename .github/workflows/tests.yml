@@ -28,7 +28,7 @@ jobs:
         run: brew install-bundler-gems
         
       - run: brew --version
-      - run: brew test-bot --skip-setup
+#       - run: brew test-bot --skip-setup
 
 #       - run: brew test-bot --only-cleanup-before -d
 
