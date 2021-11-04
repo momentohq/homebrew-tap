@@ -26,10 +26,8 @@ jobs:
       - name: Install Homebrew Bundler RubyGems
         if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
-        
-#       - run: brew update && brew upgrade && brew cleanup
 
-#       - run: brew test-bot --only-cleanup-before
+      - run: brew test-bot --only-cleanup-before
 
       - run: brew test-bot --only-setup
 
