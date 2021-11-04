@@ -26,6 +26,19 @@ jobs:
       - name: Install Homebrew Bundler RubyGems
         if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
+        
+      - name: TemporaryFix - Brew Package Management (Github/Action#1811)
+        run: |
+          brew uninstall --force --ignore-dependencies openssl
+          brew cleanup -s openssl
+          brew cleanup --prune-prefix
+          brew install openssl
+          brew uninstall --force --ignore-dependencies python
+          rm $(which 2to3)
+          brew cleanup -s python
+          brew cleanup --prune-prefix
+          brew install python
+        shell: bash
 
       - run: brew test-bot --only-cleanup-before
 
