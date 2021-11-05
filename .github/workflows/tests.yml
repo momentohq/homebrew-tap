@@ -19,30 +19,8 @@ jobs:
         run: brew install-bundler-gems
         
       - run: brew update
+      - run: brew config
+      - run: brew doctor
       - run: brew install rust
 
       - run: brew test-bot --only-cleanup-before
-
-#     Hack for now, this file is getting created with the output "All Steps Succeeded".
-#     Homebrew doesn't like this because its an uncommitted file, so it fails the build.
-      - run: rm steps_output.txt
-#     also a hack, for some reason homebrew is not setting the default homebrew url correctly.
-#     There seems to have been a recent breaking change in homebrew, hopefully this doesn't have to
-#     live here for long.
-#       - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/Homebrew/homebrew-core
-#       - run: brew tap Homebrew/core
-#       - run: brew tap Homebrew/cask
-
-      - run: brew test-bot --only-setup
-
-      - run: brew test-bot --only-tap-syntax
-
-      - run: brew test-bot --only-formulae
-        if: github.event_name == 'pull_request'
-
-      - name: Upload bottles as artifact
-        if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@main
-        with:
-          name: bottles
-          path: '*.bottle.*'
