@@ -13,6 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+#         this is important https://github.com/actions/checkout/issues/261#issuecomment-825419286
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 #       - name: Set up Homebrew
 #         id: set-up-homebrew
@@ -40,11 +42,9 @@ jobs:
       - run: |
           git status
           git log -n 1
-          echo "GITHUB_SHA=f23db7b9614d3c52b005cecca3be0dd18b8cdc8e" >> $GITHUB_ENV
         shell: bash
 
-#     KLUDGE!!!!
-      - run: GITHUB_SHA=f23db7b9614d3c52b005cecca3be0dd18b8cdc8e brew test-bot --only-formulae --debug
+      - run: brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
