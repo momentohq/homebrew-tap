@@ -16,6 +16,7 @@ jobs:
 #         this is important https://github.com/actions/checkout/issues/261#issuecomment-825419286
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+#       this action is not working, leaving this here to come back to it
 #       - name: Set up Homebrew
 #         id: set-up-homebrew
 #         uses: Homebrew/actions/setup-homebrew@master
@@ -28,21 +29,10 @@ jobs:
 #     Hack for now, this file is getting created with the output "All Steps Succeeded".
 #     Homebrew doesn't like this because its an uncommitted file, so it fails the build.
       - run: rm steps_output.txt
-#     also a hack, for some reason homebrew is not setting the default homebrew url correctly.
-#     There seems to have been a recent breaking change in homebrew, hopefully this doesn't have to
-#     live here for long.
-#       - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/Homebrew/homebrew-core
-#       - run: brew tap Homebrew/core
-#       - run: brew tap Homebrew/cask
 
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
-      
-      - run: |
-          git status
-          git log -n 1
-        shell: bash
 
 #     KLUDGE!!!! the GITHUB_SHA env variable is the merge commit sha, not the latest commit sha. Internally this command
 #     does a git merge-base, which doesnt know about these merge commits. So this is a hack to get the latest commit
