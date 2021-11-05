@@ -8,26 +8,27 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Cache Homebrew Bundler RubyGems
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
-          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
-          restore-keys: ${{ runner.os }}-rubygems-
+#       - name: Set up Homebrew
+#         id: set-up-homebrew
+#         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Install Homebrew Bundler RubyGems
-        if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
 
-      - run: brew test-bot --only-cleanup-before -d
+      - run: brew test-bot --only-cleanup-before
+
+#     Hack for now, this file is getting created with the output "All Steps Succeeded".
+#     Homebrew doesn't like this because its an uncommitted file, so it fails the build.
+      - run: rm steps_output.txt
+#     also a hack, for some reason homebrew is not setting the default homebrew url correctly.
+#     There seems to have been a recent breaking change in homebrew, hopefully this doesn't have to
+#     live here for long.
+#       - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/Homebrew/homebrew-core
+#       - run: brew tap Homebrew/core
+#       - run: brew tap Homebrew/cask
 
       - run: brew test-bot --only-setup
 
