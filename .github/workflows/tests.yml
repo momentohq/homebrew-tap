@@ -44,7 +44,10 @@ jobs:
           git log -n 1
         shell: bash
 
-      - run: brew test-bot --only-formulae --debug
+#     KLUDGE!!!! the GITHUB_SHA env variable is the merge commit sha, not the latest commit sha. Internally this command
+#     does a git merge-base, which doesnt know about these merge commits. So this is a hack to get the latest commit
+#     instead of the merged commit
+      - run: GITHUB_SHA=$(git rev-parse HEAD) brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
