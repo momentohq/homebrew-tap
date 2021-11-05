@@ -8,36 +8,32 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-        with:
-#         this is important https://github.com/actions/checkout/issues/261#issuecomment-825419286
-          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
-#       this action is not working, leaving this here to come back to it
-#       - name: Set up Homebrew
-#         id: set-up-homebrew
-#         uses: Homebrew/actions/setup-homebrew@master
+      - name: Cache Homebrew Bundler RubyGems
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ runner.os }}-rubygems-
 
       - name: Install Homebrew Bundler RubyGems
+        if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
 
       - run: brew test-bot --only-cleanup-before
-
-#     Hack for now, this file is getting created with the output "All Steps Succeeded".
-#     Homebrew doesn't like this because its an uncommitted file, so it fails the build.
-      - run: rm steps_output.txt
 
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
 
-#     KLUDGE!!!! the GITHUB_SHA env variable is the merge commit sha, not the latest commit sha. Internally this command
-#     does a git merge-base, which doesnt know about these merge commits. So this is a hack to get the latest commit
-#     instead of the merged commit
-      - run: GITHUB_SHA=$(git rev-parse HEAD) brew test-bot --only-formulae --debug
+      - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
