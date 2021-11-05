@@ -38,7 +38,7 @@ jobs:
       - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/Homebrew/homebrew-core
       - run: brew tap Homebrew/core
       - run: brew tap Homebrew/cask
-      - run: brew install rust
+      - run: brew install Homebrew/core/rust
 
       - run: brew test-bot --only-setup
 
