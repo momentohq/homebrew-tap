@@ -15,6 +15,7 @@ jobs:
         with:
 #         this is important https://github.com/actions/checkout/issues/261#issuecomment-825419286
           ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
 #       this action is not working, leaving this here to come back to it
 #       - name: Set up Homebrew
@@ -37,7 +38,7 @@ jobs:
 #     KLUDGE!!!! the GITHUB_SHA env variable is the merge commit sha, not the latest commit sha. Internally this command
 #     does a git merge-base, which doesnt know about these merge commits. So this is a hack to get the latest commit
 #     instead of the merged commit
-      - run: GITHUB_SHA=$(git rev-parse HEAD) brew test-bot --only-formulae --debug
+      - run: GITHUB_SHA="" brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
