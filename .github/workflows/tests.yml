@@ -15,7 +15,7 @@ jobs:
         with:
 #         this is important https://github.com/actions/checkout/issues/261#issuecomment-825419286
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
+
 #       this action is not working, leaving this here to come back to it
 #       - name: Set up Homebrew
 #         id: set-up-homebrew
