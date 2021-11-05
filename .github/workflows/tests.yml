@@ -33,6 +33,7 @@ jobs:
           components: rustfmt
           override: true
 
+      - run: brew tap homebrew/core
       - run: brew test-bot --only-cleanup-before
 
 #     Hack for now, this file is getting created with the output "All Steps Succeeded".
