@@ -1,9 +1,9 @@
 class MomentoCli < Formula
   desc "Momento Client CLI"
   homepage "https://github.com/momentohq/momento-cli"
-  url "https://github.com/momentohq/momento-cli/releases/download/v0.1.3/archive-0.1.3.tar.gz"
-  version "0.1.2"
-  sha256 "be407f449a19511042870ae803f2573ab923285af8a071edeacf06deddf802a8"
+  url "https://github.com/momentohq/momento-cli/releases/download/v0.1.3/archive-0.1.4.tar.gz"
+  version "0.1.4"
+  sha256 "47252d586ad50a4fd40cc10d8fd8bdc7768a84d41b9e5465d256d021a70d5371"
   head "https://github.com/momentohq/momento-cli.git"
 
   depends_on "rust" => :build
