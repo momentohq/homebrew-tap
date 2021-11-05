@@ -43,7 +43,8 @@ jobs:
           echo "GITHUB_SHA=f23db7b9614d3c52b005cecca3be0dd18b8cdc8e" >> $GITHUB_ENV
         shell: bash
 
-      - run: brew test-bot --only-formulae --debug
+#     KLUDGE!!!!
+      - run: GITHUB_SHA=f23db7b9614d3c52b005cecca3be0dd18b8cdc8e brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
