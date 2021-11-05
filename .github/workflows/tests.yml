@@ -36,7 +36,7 @@ jobs:
 #     There seems to have been a recent breaking change in homebrew, hopefully this doesn't have to
 #     live here for long.
       - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/homebrew/homebrew-core
-      - run: brew tap homebrew/core
+      - run: brew tap Homebrew/core
       - run: brew install rust
 
       - run: brew test-bot --only-setup
