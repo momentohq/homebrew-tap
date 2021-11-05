@@ -36,6 +36,11 @@ jobs:
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
+      
+      - run: |
+          git status
+          git log -n 1
+        shell: bash
 
       - run: brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
