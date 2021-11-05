@@ -11,12 +11,15 @@ jobs:
         os: [macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-#       - name: Set up Homebrew
-#         id: set-up-homebrew
-#         uses: Homebrew/actions/setup-homebrew@master
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Install Homebrew Bundler RubyGems
         run: brew install-bundler-gems
+        
+      - run: brew update
+      - run: brew install rust
 
       - run: brew test-bot --only-cleanup-before
 
