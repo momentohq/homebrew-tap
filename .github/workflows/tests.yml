@@ -11,6 +11,9 @@ jobs:
         os: [macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 #       - name: Set up Homebrew
 #         id: set-up-homebrew
 #         uses: Homebrew/actions/setup-homebrew@master
