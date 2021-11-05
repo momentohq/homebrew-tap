@@ -33,6 +33,8 @@ jobs:
 #     hack for now, this file is getting created with the output "All Steps Succeeded".
 #     Homebrew doesn't like this because its an uncommitted file, so it fails the build.
       - run: rm steps_output.txt
+      
+      - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/homebrew/homebrew-core
 
       - run: brew test-bot --only-setup
 
