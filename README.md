@@ -1,10 +1,10 @@
-# Momentohq Core
+# Momentohq Tap
 
 ## How do I install these formulae?
 
-`brew install momentohq/core/<formula>`
+`brew install momentohq/tap/<formula>`
 
-Or `brew tap momentohq/core` and then `brew install <formula>`.
+Or `brew tap momentohq/tap` and then `brew install <formula>`.
 
 ## Documentation
 
