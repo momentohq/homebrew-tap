@@ -31,7 +31,10 @@ jobs:
 
       - run: brew test-bot --only-cleanup-before
       
-      - run: ls -lah
+      - run: |
+           cat steps_output.txt
+           rm steps_output.txt
+        shell: bash
 
       - run: brew test-bot --only-setup
 
