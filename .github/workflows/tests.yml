@@ -43,6 +43,7 @@ jobs:
 #     live here for long.
       - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/homebrew/homebrew-core
 
+      - run: brew install rust
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
