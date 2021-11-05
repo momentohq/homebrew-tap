@@ -8,7 +8,6 @@ class MomentoCli < Formula
   depends_on "rust" => :build
 
   def install
-    # ENV.deparallelize  # if your formula fails when building in parallel
     system "cargo", "install", *std_cargo_args
   end
 end
