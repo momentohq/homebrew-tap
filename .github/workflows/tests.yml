@@ -35,7 +35,7 @@ jobs:
 #     also a hack, for some reason homebrew is not setting the default homebrew url correctly.
 #     There seems to have been a recent breaking change in homebrew, hopefully this doesn't have to
 #     live here for long.
-      - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/homebrew/homebrew-core
+      - run: git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin https://github.com/Homebrew/homebrew-core
       - run: brew tap Homebrew/core
       - run: brew install rust
 
