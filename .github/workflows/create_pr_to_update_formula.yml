@@ -17,7 +17,7 @@ jobs:
       uses: repo-sync/pull-request@v2
       with:
         destination_branch: "main"
-        pr_title: "momento-cli ${{ env.GITHUB_REF_NAME }}"
+        pr_title: "momento-cli ${{ github.ref }}"
         pr_body: ":crown: *Automated PR*"
         pr_reviewer: "bruuuuuuuce"
         pr_assignee: "bruuuuuuuce"
