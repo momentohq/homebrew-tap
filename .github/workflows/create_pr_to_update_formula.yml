@@ -1,0 +1,27 @@
+name: Create Pr
+
+on:
+  push:
+    branches: [ 'formula/**' ]
+
+jobs:
+  build:
+    name: Create Pr to Update Formula
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: pull-request
+      id: cpr
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "main"
+        pr_title: "momento-cli ${{ env.GITHUB_REF_NAME }}"
+        pr_body: ":crown: *Automated PR*"
+        pr_reviewer: "bruuuuuuuce"
+        pr_assignee: "bruuuuuuuce"
+        pr_label: "automation"
+        pr_draft: false
+        pr_allow_empty: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
