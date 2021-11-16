@@ -13,6 +13,9 @@ class MomentoCli < Formula
 
   depends_on "rust" => :build
 
+  uses_from_macos "libcrypto"
+  uses_from_macos "libssl"
+
   def install
     system "cargo", "install", *std_cargo_args
     bin.install "target/release/momento"
