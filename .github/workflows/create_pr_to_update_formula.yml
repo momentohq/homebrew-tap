@@ -24,4 +24,4 @@ jobs:
         pr_label: "automation"
         pr_draft: false
         pr_allow_empty: true
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PRIVATE_REPO_RELEASE_ACCESS }}
