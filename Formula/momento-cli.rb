@@ -6,9 +6,9 @@ class MomentoCli < Formula
   head "https://github.com/momentohq/momento-cli.git"
 
   bottle do
-    root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.11.8"
-    sha256 cellar: :any_skip_relocation, big_sur:      "470684dee2fe953fbc6aa94993ce6b9f480c667fea69e891322a60007cb323e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8f38e495597e9241153221d8f2ce27a3268e47afd28d91193cd8ebd27e72ab4a"
+    root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.11.9"
+    sha256 cellar: :any_skip_relocation, big_sur:      "fab9675fd158e94ea1cd3c70c81df3aca1de6934058efc451f350573f73f7ab9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "6bbe9c8aaec45637de340fb502d334f9895aea6d118ed40fee3c95fe36914a36"
   end
 
   depends_on "rust" => :build
