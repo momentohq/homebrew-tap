@@ -35,6 +35,15 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
+      - name: Build aarch64 darwin binary and build tar.gz
+        if: github.event_name == 'pull_request'
+        run: |
+          rustup target add aarch64-apple-darwin
+          RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
+          $REF={{ github.event.pull_request.head.ref }}
+          $VERSION=$(echo -n $REF | tail -c 6)
+          tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
 
@@ -43,4 +52,4 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: bottles
-          path: '*.bottle.*'
+          path: "*.bottle.*"
