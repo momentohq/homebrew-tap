@@ -84,7 +84,7 @@ jobs:
           mkdir $ARM_DIR/$VERSION/bin
           pushd archive-$VERSION
             cargo build --release --target aarch64-apple-darwin
-            move  ./target/aarch64-apple-darwin/release/momento ../$ARM_DIR/$VERSION/bin
+            mv  ./target/aarch64-apple-darwin/release/momento ../$ARM_DIR/$VERSION/bin
           popd
           ls $ARM_DIR
           tar zcvf ./momento-cli-$VERSION.arm_big_sur.bottle.tar.gz $ARM_DIR
