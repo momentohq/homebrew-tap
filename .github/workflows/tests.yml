@@ -48,17 +48,26 @@ jobs:
         if: |
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
-        run: |
-          TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
-          VERSION=$(echo -n $TAG | cut -c 17-22)
-          ARCHIVE=archive-$VERSION.tar.gz
-          LOCATION=https://github.com/momentohq/momento-cli/releases/$ARCHIVE
-          curl -LO $LOCATION
-          tar -zxvf $ARCHIVE
-          pushd archive-$VERSION
-            RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
-            tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
-          popd
+        uses: octokit/request-action@v2.x
+        id: get_latest_release
+        with:
+          route: GET /repos/{owner}/{repo}/releases/latest
+          owner: momentohq
+          repo: momento-cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:
+          "echo latest release: ${{ steps.get_latest_release.outputs.data }}"
+          #TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
+          # VERSION=$(echo -n $TAG | cut -c 17-22)
+          # ARCHIVE=archive-$VERSION.tar.gz
+          # LOCATION=https://github.com/momentohq/momento-cli/releases/$ARCHIVE
+          # curl -LO $LOCATION
+          # tar -zxvf $ARCHIVE
+          # pushd archive-$VERSION
+          #   RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
+          #   tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+          # popd
 
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
