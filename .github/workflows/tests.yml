@@ -44,7 +44,7 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
-      - name: Build aarch64 darwin binary and build tar.gz
+      - name: Get latest release for momento-cli
         if: |
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
@@ -56,7 +56,12 @@ jobs:
           repo: momento-cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run:
+
+      - name: Build aarch64 darwin binary and build tar.gz
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
+        run:
           "echo latest release: ${{ fromJSON(steps.get_latest_release.outputs.data).name }}"
           #TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
           # VERSION=$(echo -n $TAG | cut -c 17-22)
