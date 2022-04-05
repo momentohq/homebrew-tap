@@ -59,7 +59,7 @@ jobs:
         run: |
           VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
           ARCHIVE=archive-$VERSION.tar.gz
-          LOCATION=https://github.com/momentohq/momento-cli/releases/download/v.$VERSION/$ARCHIVE
+          LOCATION=https://github.com/momentohq/momento-cli/releases/download/v$VERSION/$ARCHIVE
           echo $LOCATION
           curl -OL $LOCATION
           tar -zxvf $ARCHIVE
