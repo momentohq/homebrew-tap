@@ -51,9 +51,7 @@ jobs:
         uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/{owner}/{repo}/releases/latest
-          owner: momentohq
-          repo: momento-cli
+          route: GET /repos/momentohq/momento-cli/releases/latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run:
