@@ -17,11 +17,6 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: aarch64-apple-darwin
-
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -57,19 +52,41 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build aarch64 darwin binary and build tar.gz
+      - name: Download archive files
         if: |
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
+        uses: actions-rs/toolchain@v1
         run: |
-          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
+          echo "VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)" >> $GITHUB_ENV
           ARCHIVE=archive-$VERSION.tar.gz
           LOCATION=https://github.com/momentohq/momento-cli/releases/download/v$VERSION/$ARCHIVE
           curl -OL $LOCATION
           tar -zxvf $ARCHIVE
           pushd archive-$VERSION
-            RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
-            tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: aarch64-apple-darwin
+          override: true
+
+      - name: Build aarch64
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target aarch64-apple-darwin
+
+      - name: Build tar.gz for arm_big_sur
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
+        run: |
+          tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
           popd
 
       - run: brew test-bot --only-formulae
