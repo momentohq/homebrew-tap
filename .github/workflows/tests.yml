@@ -65,11 +65,11 @@ jobs:
           VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
           ARCHIVE=archive-$VERSION.tar.gz
           LOCATION=https://github.com/momentohq/momento-cli/releases/$ARCHIVE
-          curl -LO $LOCATION
+          curl -OL $LOCATION
           tar -zxvf $ARCHIVE
           pushd archive-$VERSION
-          RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
-          tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+            RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
+            tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
           popd
 
       - run: brew test-bot --only-formulae
