@@ -77,6 +77,7 @@ jobs:
         run: |
           VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
           ARM_DIR=momento-cli-$VERSION.arm_big_sur.bottle
+          mkdir $ARM_DIR
           mkdir $ARM_DIR/$VERSION
           mv archive-$VERSION/README.md $ARM_DIR/$VERSION
           mv archive-$VERSION/LICENSE $ARM_DIR/$VERSION
