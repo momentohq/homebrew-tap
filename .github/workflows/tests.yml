@@ -45,10 +45,12 @@ jobs:
       - run: brew test-bot --only-tap-syntax
 
       - name: Build aarch64 darwin binary and build tar.gz
-        if: github.event_name == 'pull_request'
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
         run: |
-          REF={{ github.event.pull_request.head.ref }}
-          VERSION=$(echo -n $REF | tail -c 6)
+          TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
+          VERSION=$(echo -n $TAG | cut -c 17-22)
           ARCHIVE=archive-$VERSION.tar.gz
           LOCATION=https://github.com/momentohq/momento-cli/releases/$ARCHIVE
           curl -LO $LOCATION
