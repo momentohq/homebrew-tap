@@ -63,7 +63,6 @@ jobs:
           echo $LOCATION
           curl -OL $LOCATION
           tar -zxvf $ARCHIVE
-          pushd archive-$VERSION
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -71,23 +70,15 @@ jobs:
           target: aarch64-apple-darwin
           override: true
 
-      - name: Build aarch64
-        if: |
-          github.event_name == 'pull_request' &&
-          matrix.os == 'macos-latest'
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target aarch64-apple-darwin
-
-      - name: Build tar.gz for arm_big_sur
+      - name: Build aarch64 and tar.gz for arm_big_sur
         if: |
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
         run: |
-          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
-          tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+          pushd archive-$VERSION
+            cargo build --release --target aarch64-apple-darwin
+            VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
+            tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
           popd
 
       - run: brew test-bot --only-formulae
