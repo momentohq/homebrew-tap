@@ -35,6 +35,56 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
+      - name: Get latest release for momento-cli
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
+        uses: octokit/request-action@v2.x
+        id: get_latest_release
+        with:
+          route: GET /repos/{owner}/{repo}/releases/latest
+          owner: momentohq
+          repo: momento-cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download archive files
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
+        run: |
+          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
+          ARCHIVE=archive-$VERSION.tar.gz
+          LOCATION=https://github.com/momentohq/momento-cli/releases/download/v$VERSION/$ARCHIVE
+          echo $LOCATION
+          curl -OL $LOCATION
+          tar -zxvf $ARCHIVE
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: aarch64-apple-darwin
+          override: true
+
+      - name: Build aarch64 and tar.gz for arm_big_sur
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
+        run: |
+          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
+          ARM_DIR=momento-cli
+          mkdir $ARM_DIR
+          mkdir $ARM_DIR/$VERSION
+          mv archive-$VERSION/README.md $ARM_DIR/$VERSION
+          mv archive-$VERSION/LICENSE $ARM_DIR/$VERSION
+          mkdir $ARM_DIR/$VERSION/bin
+          pushd archive-$VERSION
+            cargo build --release --target aarch64-apple-darwin
+            mv  ./target/aarch64-apple-darwin/release/momento ../$ARM_DIR/$VERSION/bin
+          popd
+          ls $ARM_DIR
+          tar zcvf ./momento-cli-$VERSION.arm_big_sur.bottle.tar.gz $ARM_DIR
+
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
 
@@ -43,4 +93,4 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: bottles
-          path: '*.bottle.*'
+          path: "*.bottle.*"
