@@ -62,17 +62,15 @@ jobs:
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
         run:
-          "echo latest release: ${{ fromJSON(steps.get_latest_release.outputs.data).name }}"
-          #TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
-          # VERSION=$(echo -n $TAG | cut -c 17-22)
-          # ARCHIVE=archive-$VERSION.tar.gz
-          # LOCATION=https://github.com/momentohq/momento-cli/releases/$ARCHIVE
-          # curl -LO $LOCATION
-          # tar -zxvf $ARCHIVE
-          # pushd archive-$VERSION
-          #   RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
-          #   tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
-          # popd
+          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
+          ARCHIVE=archive-$VERSION.tar.gz
+          LOCATION=https://github.com/momentohq/momento-cli/releases/$ARCHIVE
+          curl -LO $LOCATION
+          tar -zxvf $ARCHIVE
+          pushd archive-$VERSION
+          RUSTFLAGS="-D warnings" cargo build --release --target aarch64-apple-darwin
+          tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+          popd
 
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
