@@ -56,7 +56,7 @@ jobs:
           repo: momento-cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
+      - run:
           "echo latest release: ${{ steps.get_latest_release.outputs.data }}"
           #TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
           # VERSION=$(echo -n $TAG | cut -c 17-22)
