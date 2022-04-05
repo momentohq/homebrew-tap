@@ -76,10 +76,17 @@ jobs:
           matrix.os == 'macos-latest'
         run: |
           VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
+          ARM_DIR=momento-cli-$VERSION.arm_big_sur.bottle
+          mkdir $ARM_DIR/$VERSION
+          mv archive-$VERSION/README.md $ARM_DIR/$VERSION
+          mv archive-$VERSION/LICENSE $ARM_DIR/$VERSION
+          mkdir $ARM_DIR/$VERSION/bin
           pushd archive-$VERSION
             cargo build --release --target aarch64-apple-darwin
-            tar zcvf ../momento-cli-$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+            move  ./target/aarch64-apple-darwin/release/momento ../$ARM_DIR/$VERSION/bin
           popd
+          ls $ARM_DIR
+          tar zcvf ./momento-cli-$VERSION.arm_big_sur.bottle.tar.gz $ARM_DIR
 
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
