@@ -51,11 +51,13 @@ jobs:
         uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/momentohq/momento-cli/releases/latest
+          route: GET /repos/{owner}/{repo}/releases/latest
+          owner: momentohq
+          repo: momento-cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run:
-          "echo latest release: ${{ steps.get_latest_release.outputs.data.name }}"
+          "echo latest release: ${{ fromJSON(steps.get_latest_release.outputs.data).name }}"
           #TAG=$(curl -s https://api.github.com/repos/momentohq/momento-cli/releases/latest | grep "tag_name")
           # VERSION=$(echo -n $TAG | cut -c 17-22)
           # ARCHIVE=archive-$VERSION.tar.gz
