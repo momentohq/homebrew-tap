@@ -58,12 +58,12 @@ jobs:
           matrix.os == 'macos-latest'
         run: |
           echo "VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)" >> $GITHUB_ENV
-          ARCHIVE=archive-$VERSION.tar.gz
-          LOCATION=https://github.com/momentohq/momento-cli/releases/download/v.$VERSION/$ARCHIVE
+          ARCHIVE=archive-${{ env.$VERSION }}.tar.gz
+          LOCATION=https://github.com/momentohq/momento-cli/releases/download/v.${{ env.$VERSION }}/$ARCHIVE
           echo $LOCATION
           curl -OL $LOCATION
           tar -zxvf $ARCHIVE
-          pushd archive-$VERSION
+          pushd archive-${{ env.$VERSION }}
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -86,7 +86,7 @@ jobs:
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
         run: |
-          tar zcvf momento-cli$VERSION.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
+          tar zcvf momento-cli${{ env.$VERSION }}.arm_big_sur.bottle.tar.gz ./target/aarch64-apple-darwin/release
           popd
 
       - run: brew test-bot --only-formulae
