@@ -56,7 +56,6 @@ jobs:
         if: |
           github.event_name == 'pull_request' &&
           matrix.os == 'macos-latest'
-        uses: actions-rs/toolchain@v1
         run: |
           echo "VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)" >> $GITHUB_ENV
           ARCHIVE=archive-$VERSION.tar.gz
