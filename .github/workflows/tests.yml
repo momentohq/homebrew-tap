@@ -95,3 +95,12 @@ jobs:
         with:
           name: bottles
           path: "*.bottle.*"
+  label-pr:
+    name: Label pr pr-pull
+    needs: test-bot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: always() && github.event_name == 'pull_request'
+        with:
+          labels: pr-pull
