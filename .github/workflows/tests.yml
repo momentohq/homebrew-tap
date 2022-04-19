@@ -95,3 +95,14 @@ jobs:
         with:
           name: bottles
           path: "*.bottle.*"
+  label-pr:
+    name: Label pr pr-pull
+    needs: test-bot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-ecosystem/action-add-labels@v1
+      # Only add this label to branches that update formulae in this repo
+        if: github.event_name == 'pull_request' && contains(${GITHUB_HEAD_REF}, 'formula/')
+        with:
+          labels: pr-pull
+          github_token: ${{ secrets.PRIVATE_REPO_RELEASE_ACCESS }}

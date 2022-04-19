@@ -19,8 +19,6 @@ jobs:
         destination_branch: "main"
         pr_title: "momento-cli ${{ github.ref }}"
         pr_body: ":crown: *Automated PR*"
-        pr_reviewer: "bruuuuuuuce"
-        pr_assignee: "bruuuuuuuce"
         pr_label: "automation"
         pr_draft: false
         pr_allow_empty: true
