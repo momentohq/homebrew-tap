@@ -28,9 +28,6 @@ jobs:
       - name: Install Homebrew Bundler RubyGems
         if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
-        
-      - name: Install Protobuf Compiler Tools
-        run: brew fetch --retry protobuf
 
       - run: brew test-bot --only-cleanup-before
 
