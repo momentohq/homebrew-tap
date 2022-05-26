@@ -11,8 +11,8 @@ class MomentoCli < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux: "3413c7f1868e4f00bb384d448565c1174f25208e3fb6a97c4085e7b05ab53f8b"
   end
 
-  depends_on "rust" => :build
   depends_on "protobuf" => :build
+  depends_on "rust" => :build
 
   def install
     system "cargo", "install", *std_cargo_args
