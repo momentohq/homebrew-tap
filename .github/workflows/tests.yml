@@ -30,7 +30,7 @@ jobs:
         run: brew install-bundler-gems
         
       - name: Install Protobuf Compiler Tools
-        run: brew install protobuf autoconf automake libtool cmake
+        run: brew install grpc protobuf autoconf automake libtool cmake
 
       - run: brew test-bot --only-cleanup-before
 
