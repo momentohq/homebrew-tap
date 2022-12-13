@@ -68,6 +68,8 @@ jobs:
 
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build aarch64 and tar.gz for arm_big_sur
         if: |
