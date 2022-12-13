@@ -61,6 +61,9 @@ jobs:
           tar -zxvf $ARCHIVE
 
       - name: Cache Rust dependencies
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
         uses: actions/cache@v3
         with:
           path: |
@@ -72,12 +75,19 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - uses: actions-rs/toolchain@v1
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
         with:
           toolchain: stable
           target: aarch64-apple-darwin
           override: true
 
+      # Needed by prost-build.
       - name: Install Protoc
+        if: |
+          github.event_name == 'pull_request' &&
+          matrix.os == 'macos-latest'
         uses: arduino/setup-protoc@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
