@@ -105,4 +105,4 @@ jobs:
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'formula/')
         with:
           labels: pr-pull
-          github_token: ${{ secrets.PRIVATE_REPO_RELEASE_ACCESS }}
+          github_token: ${{ secrets.MOMENTO_MACHINE_USER_GITHUB_TOKEN }}
