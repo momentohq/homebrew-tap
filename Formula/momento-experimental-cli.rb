@@ -19,7 +19,7 @@ class MomentoExperimentalCli < Formula
       sha256 "412b123121272e06606072c39218a330b550253059bc87e60e755255625c42e5"
 
       def install
-        bin.install "target/x86_64-unknown-linux-gnu/release/momento
+        bin.install "target/x86_64-unknown-linux-gnu/release/momento"
       end
     end
     if Hardware::CPU.arm?
