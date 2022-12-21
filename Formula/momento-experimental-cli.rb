@@ -1,6 +1,7 @@
 class MomentoExperimentalCli < Formula
   desc "Cli to interact with Momento services"
   homepage "https://github.com/momentohq/momento-cli"
+  version "0.25.4"
   # url "https://github.com/momentohq/momento-cli/releases/download/v0.25.4/archive-0.25.4.tar.gz"
   # sha256 "46732f59df3047179d63b639445197d6d5a828237f5b04b04fa993db17fb0f85"
   # head "https://github.com/momentohq/momento-cli.git"
