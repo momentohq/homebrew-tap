@@ -7,11 +7,11 @@ class MomentoExperimentalCli < Formula
 
   # bottle do
   #   root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.25.4"
-  #   sha256 cellar: :any_skip_relocation, monterey:     "13df2ba373237c9b190c917fc5f6c86306cf4bc4987f28c2c84a06530628487d"
-  #   sha256 cellar: :any_skip_relocation, x86_64_linux: "1e82288f298640116e35f918d8b8a203350ea71ae7590bb570e916ecbf366c2a"
+  #   sha256 cellar: :any_skip_relocation, monterey:
+  # "13df2ba373237c9b190c917fc5f6c86306cf4bc4987f28c2c84a06530628487d"
+  #   sha256 cellar: :any_skip_relocation, x86_64_linux:
+  # "1e82288f298640116e35f918d8b8a203350ea71ae7590bb570e916ecbf366c2a"
   # end
-
-
 
   on_macos do
     if Hardware::CPU.intel?
@@ -50,5 +50,4 @@ class MomentoExperimentalCli < Formula
       end
     end
   end
-
 end
