@@ -111,7 +111,7 @@ jobs:
           ls $ARM_DIR
           tar zcvf ./momento-cli--$VERSION.arm_big_sur.bottle.tar.gz $ARM_DIR
 
-      - run: brew test-bot --only-formulae
+      - run: brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
@@ -120,7 +120,7 @@ jobs:
         with:
           name: bottles
           path: "*.bottle.*"
-          
+
   label-pr:
     name: Label pr pr-pull
     needs: test-bot
