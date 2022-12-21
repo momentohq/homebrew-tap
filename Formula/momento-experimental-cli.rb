@@ -36,7 +36,7 @@ class MomentoExperimentalCli < Formula
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/momentohq/momento-cli/releases/download/v0.25.5/momento-cli-0.25.5.linux_x86_64.tar.gz"
-      sha256 "412b123121272e06606072c39218a330b550253059bc87e60e755255625c42e5"
+      sha256 "175004e8cc9c681ea54108ebf485d93ec111e11f6c93e8ca827bd76a7fec2ae0"
 
       def install
         bin.install "momento"
@@ -44,7 +44,7 @@ class MomentoExperimentalCli < Formula
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/momentohq/momento-cli/releases/download/v0.25.5/momento-cli-0.25.5.linux_aarch64.tar.gz"
-      sha256 "71e35fe96baf2723e9931856c551e0460fc90ffb191db80765b2ad7d11c18f5c"
+      sha256 "9fa6b3fa8c4bb7a84b550149ab014f51e40ce2bd85f943794a72217780850f7d"
 
       def install
         bin.install "momento"
