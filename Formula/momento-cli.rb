@@ -1,8 +1,8 @@
 class MomentoCli < Formula
   desc "Cli to interact with Momento services"
   homepage "https://github.com/momentohq/momento-cli"
-  url "https://github.com/momentohq/momento-cli/releases/download/v0.25.5/archive-0.25.5.tar.gz"
-  sha256 "152a8719fb51762076c7683fdfe3752bac2805f93330b5a6f6d149ef30fa40ba"
+  url "https://github.com/momentohq/momento-cli/releases/download/v0.25.6/archive-0.25.6.tar.gz"
+  sha256 "dfbc44348dba28bf592555c39264ce62f70484a6f552fb47799275eecd820871"
   head "https://github.com/momentohq/momento-cli.git"
 
   bottle do
