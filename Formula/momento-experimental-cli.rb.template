@@ -1,0 +1,43 @@
+class MomentoExperimentalCli < Formula
+  desc "Cli to interact with Momento services"
+  homepage "https://github.com/momentohq/momento-cli"
+  version "${MOMENTO_CLI_VERSION}"
+
+  on_macos do
+    if Hardware::CPU.intel?
+      url "${MOMENTO_CLI_MAC_X86_64_URL}"
+      sha256 "${MOMENTO_CLI_MAC_X86_64_SHA}"
+
+      def install
+        bin.install "momento"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "${MOMENTO_CLI_MAC_AARCH64_URL}"
+      sha256 "${MOMENTO_CLI_MAC_AARCH64_SHA}"
+
+      def install
+        bin.install "momento"
+      end
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.intel?
+      url "${MOMENTO_CLI_LINUX_X86_64_URL}"
+      sha256 "${MOMENTO_CLI_LINUX_X86_64_SHA}"
+
+      def install
+        bin.install "momento"
+      end
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "${MOMENTO_CLI_LINUX_AARCH64_URL}"
+      sha256 "${MOMENTO_CLI_LINUX_AARCH64_SHA}"
+
+      def install
+        bin.install "momento"
+      end
+    end
+  end
+end
