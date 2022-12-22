@@ -1,4 +1,4 @@
-class MomentoExperimentalCli < Formula
+class MomentoCli < Formula
   desc "Cli to interact with Momento services"
   homepage "https://github.com/momentohq/momento-cli"
   version "${MOMENTO_CLI_VERSION}"
