@@ -48,78 +48,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download archive files
-        if: |
-          github.event_name == 'pull_request' &&
-          matrix.os == 'macos-latest'
-        run: |
-          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
-          ARCHIVE=archive-$VERSION.tar.gz
-          LOCATION=https://github.com/momentohq/momento-cli/releases/download/v$VERSION/$ARCHIVE
-          echo $LOCATION
-          curl -OL $LOCATION
-          tar -zxvf $ARCHIVE
-
-      - name: Cache Rust dependencies
-        if: |
-          github.event_name == 'pull_request' &&
-          matrix.os == 'macos-latest'
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
-      - uses: actions-rs/toolchain@v1
-        if: |
-          github.event_name == 'pull_request' &&
-          matrix.os == 'macos-latest'
-        with:
-          toolchain: stable
-          target: aarch64-apple-darwin
-          override: true
-
-      # Needed by prost-build.
-      - name: Install Protoc
-        if: |
-          github.event_name == 'pull_request' &&
-          matrix.os == 'macos-latest'
-        uses: arduino/setup-protoc@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build aarch64 and tar.gz for arm_big_sur
-        if: |
-          github.event_name == 'pull_request' &&
-          matrix.os == 'macos-latest'
-        run: |
-          VERSION=$(echo -n ${{ fromJSON(steps.get_latest_release.outputs.data).name }} | tail -c 6)
-          ARM_DIR=momento-cli
-          mkdir $ARM_DIR
-          mkdir $ARM_DIR/$VERSION
-          mv archive-$VERSION/README.md $ARM_DIR/$VERSION
-          mv archive-$VERSION/LICENSE $ARM_DIR/$VERSION
-          mkdir $ARM_DIR/$VERSION/bin
-          pushd archive-$VERSION
-            cargo build --release --target aarch64-apple-darwin
-            mv  ./target/aarch64-apple-darwin/release/momento ../$ARM_DIR/$VERSION/bin
-          popd
-          ls $ARM_DIR
-          tar zcvf ./momento-cli--$VERSION.arm_big_sur.bottle.tar.gz $ARM_DIR
-
-      - run: brew test-bot --only-formulae --debug || tree /tmp
+      - run: brew test-bot --only-formulae --debug
         if: github.event_name == 'pull_request'
-
-      - name: Upload bottles as artifact
-        if: success() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@main
-        with:
-          name: bottles
-          path: "*.bottle.*"
 
   label-pr:
     name: Label pr pr-pull
