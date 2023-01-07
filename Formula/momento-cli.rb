@@ -3,6 +3,12 @@ class MomentoCli < Formula
   homepage "https://github.com/momentohq/momento-cli"
   version "0.26.4"
 
+  bottle do
+    root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.26.4"
+    sha256 cellar: :any_skip_relocation, monterey:     "236c6f75fd1bb371468d505fa9d3153912b030706f85b05a1300d74b89884be7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "64e63b6c01c149c6ae63886cb9127fd60e8ade6cc4e7b8b5f3156a010172bcfb"
+  end
+
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/momentohq/momento-cli/releases/download/v0.26.4/momento-cli-0.26.4.x86_64-apple-darwin.tar.gz"
