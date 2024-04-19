@@ -1,18 +1,12 @@
 class MomentoCli < Formula
   desc "Cli to interact with Momento services"
   homepage "https://github.com/momentohq/momento-cli"
-  version "0.42.3"
-
-  bottle do
-    root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.42.3"
-    sha256 cellar: :any_skip_relocation, monterey:     "3013f3e6b11b6f083ccfca004ff86b47be9171fd91aaa0d9a8f1670f06bf5e9f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "c0bb3fe0f398072c4bba9acc5181760de9c666671b461a551433c58ec73d87ec"
-  end
+  version "0.42.7"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.3/momento-cli-0.42.3.x86_64-apple-darwin.tar.gz"
-      sha256 "77ba43429da5866e23820ba007df46bccb4bb466e389697436e0710e2448c514"
+      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.7/momento-cli-0.42.7.x86_64-apple-darwin.tar.gz"
+      sha256 "8455ff7c3b33199c15031a54579fd344eea2eb30d12a1e95314101396b373118"
 
       def install
         bin.install "momento"
@@ -21,8 +15,8 @@ class MomentoCli < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.3/momento-cli-0.42.3.aarch64-apple-darwin.tar.gz"
-      sha256 "4f9d6aca97ad9a5d9c1c2bbe3b1483e7cea2633588083b93377334485dcfdb2c"
+      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.7/momento-cli-0.42.7.aarch64-apple-darwin.tar.gz"
+      sha256 "d350fd25a33de307e60a311d8e07949b16d937774aa41b1960a7500984076c97"
 
       def install
         bin.install "momento"
@@ -34,8 +28,8 @@ class MomentoCli < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.3/momento-cli-0.42.3.linux_x86_64.tar.gz"
-      sha256 "28d9c0d9021751c33c1884778e2cb4a1ceb62338c45a310bda23c36e66897e65"
+      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.7/momento-cli-0.42.7.linux_x86_64.tar.gz"
+      sha256 "2d0ffb5690d3541a1b87625a2ee2012588da57e06d37252dd4831ae1a5801edd"
 
       def install
         bin.install "momento"
@@ -44,8 +38,8 @@ class MomentoCli < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.3/momento-cli-0.42.3.linux_aarch64.tar.gz"
-      sha256 "3e6e972759464ae8f93f7a3316cf0a4c1863f3fbff59c3c81986abe5172220b3"
+      url "https://github.com/momentohq/momento-cli/releases/download/v0.42.7/momento-cli-0.42.7.linux_aarch64.tar.gz"
+      sha256 "8850a4638e7535f55c99ca26b7a1d24e228e3bcaa318070987330a96bda44aad"
 
       def install
         bin.install "momento"
