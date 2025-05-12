@@ -53,7 +53,7 @@ jobs:
 
       - name: Upload bottles as artifact
         if: success() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v3 # https://github.com/actions/upload-artifact/issues/478#issuecomment-2031970585
+        uses: actions/upload-artifact@v4
         with:
           name: bottles
           path: "*.bottle.*"
