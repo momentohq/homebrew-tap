@@ -19,7 +19,7 @@ jobs:
 
       - name: Cache Homebrew Bundler RubyGems
         id: cache
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ steps.set-up-homebrew.outputs.gems-path }}
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
@@ -53,7 +53,7 @@ jobs:
 
       - name: Upload bottles as artifact
         if: success() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v3 # https://github.com/actions/upload-artifact/issues/478#issuecomment-2031970585
+        uses: actions/upload-artifact@v4
         with:
           name: bottles
           path: "*.bottle.*"
