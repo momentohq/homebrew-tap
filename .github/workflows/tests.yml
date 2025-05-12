@@ -55,7 +55,7 @@ jobs:
         if: success() && github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: bottles
+          name: bottles_${{ matrix.os }}
           path: "*.bottle.*"
 
   label-pr:
