@@ -14,7 +14,7 @@ class MomentoCli < Formula
       url "https://github.com/momentohq/momento-cli/releases/download/v0.49.1/momento-cli-0.49.1.x86_64-apple-darwin.tar.gz"
       sha256 "eaca77dc6a993a343031c51c9440288ede50c1ecba4fc0d21ee2f8b0dd112f94"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
@@ -24,7 +24,7 @@ class MomentoCli < Formula
       url "https://github.com/momentohq/momento-cli/releases/download/v0.49.1/momento-cli-0.49.1.aarch64-apple-darwin.tar.gz"
       sha256 "6bc83d31f3dae5eada954e8d78c5ccf1d3b88bda229d93c5d1cf8d9b659e031e"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
@@ -37,7 +37,7 @@ class MomentoCli < Formula
       url "https://github.com/momentohq/momento-cli/releases/download/v0.49.1/momento-cli-0.49.1.linux_x86_64.tar.gz"
       sha256 "1a178b4f6fbdd37cf32217db43ea5f08f235eed04467707d24cf8768fc4fac61"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
@@ -47,7 +47,7 @@ class MomentoCli < Formula
       url "https://github.com/momentohq/momento-cli/releases/download/v0.49.1/momento-cli-0.49.1.linux_aarch64.tar.gz"
       sha256 "e126569de479d9928f508ef3fc1c3e7a51eb4c71120090e75434be94965f64f3"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
