@@ -8,7 +8,7 @@ class MomentoCli < Formula
       url "${MOMENTO_CLI_MAC_X86_64_URL}"
       sha256 "${MOMENTO_CLI_MAC_X86_64_SHA}"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
@@ -18,7 +18,7 @@ class MomentoCli < Formula
       url "${MOMENTO_CLI_MAC_AARCH64_URL}"
       sha256 "${MOMENTO_CLI_MAC_AARCH64_SHA}"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
@@ -31,7 +31,7 @@ class MomentoCli < Formula
       url "${MOMENTO_CLI_LINUX_X86_64_URL}"
       sha256 "${MOMENTO_CLI_LINUX_X86_64_SHA}"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
@@ -41,7 +41,7 @@ class MomentoCli < Formula
       url "${MOMENTO_CLI_LINUX_AARCH64_URL}"
       sha256 "${MOMENTO_CLI_LINUX_AARCH64_SHA}"
 
-      def install
+      define_method(:install) do
         bin.install "momento"
         bash_completion.install "bash/momento"
         zsh_completion.install "zsh/_momento"
