@@ -1,0 +1,40 @@
+# Formula template for the `mo` CLI (Claude Code launcher through the Momento LLM gateway).
+# Rendered by release-deploy.yml's publish-cli-assets job via envsubst, then pushed to a
+# formula/mo/v<ver> branch on momentohq/homebrew-tap. The tap's brew pr-pull pipeline then builds a
+# bottle, attaches it to the mo-<ver> release, rewrites this file with a `bottle do` block, and
+# merges to main — the same flow momento-cli uses. mo is a prebuilt-binary formula: url+sha256 per
+# arch pointing at the PUBLIC tap release (this repo is private, so the private release URLs 401 for
+# outside users), `bin.install "mo"` for the single shipped binary, no completions, no build deps.
+class Mo < Formula
+  desc "Launcher that runs Claude Code through the Momento LLM gateway"
+  homepage "https://github.com/momentohq/mfunc-llm-gw"
+  version "${MO_VERSION}"
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "${MO_MAC_AARCH64_URL}"
+      sha256 "${MO_MAC_AARCH64_SHA}"
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.intel?
+      url "${MO_LINUX_X86_64_URL}"
+      sha256 "${MO_LINUX_X86_64_SHA}"
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "${MO_LINUX_AARCH64_URL}"
+      sha256 "${MO_LINUX_AARCH64_SHA}"
+    end
+  end
+
+  def install
+    # The release tarball contains one file, the `mo` binary, at the archive root.
+    bin.install "mo"
+  end
+
+  test do
+    # `mo --version` is offline (no network/auth) — safe in the sandboxed brew test environment.
+    assert_match "mo", shell_output("#{bin}/mo --version")
+  end
+end
