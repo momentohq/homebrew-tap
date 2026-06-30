@@ -1,5 +1,5 @@
 class Mo < Formula
-  desc "Momento command-line tool"
+  desc "mo"
   version "${MO_VERSION}"
 
   on_macos do
