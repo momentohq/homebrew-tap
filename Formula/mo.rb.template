@@ -1,0 +1,30 @@
+class Mo < Formula
+  desc "Momento command-line tool"
+  version "${MO_VERSION}"
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "${MO_MAC_AARCH64_URL}"
+      sha256 "${MO_MAC_AARCH64_SHA}"
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.intel?
+      url "${MO_LINUX_X86_64_URL}"
+      sha256 "${MO_LINUX_X86_64_SHA}"
+    end
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "${MO_LINUX_AARCH64_URL}"
+      sha256 "${MO_LINUX_AARCH64_SHA}"
+    end
+  end
+
+  def install
+    bin.install "mo"
+  end
+
+  test do
+    assert_match "mo", shell_output("#{bin}/mo --version")
+  end
+end
