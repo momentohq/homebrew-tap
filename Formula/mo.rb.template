@@ -1,8 +1,12 @@
 class Mo < Formula
-  desc "mo"
-  version "${MO_VERSION}"
+  desc "Command-line client"
+  homepage "https://www.gomomento.com"
 
   on_macos do
+    if Hardware::CPU.intel?
+      url "${MO_MAC_X86_64_URL}"
+      sha256 "${MO_MAC_X86_64_SHA}"
+    end
     if Hardware::CPU.arm?
       url "${MO_MAC_AARCH64_URL}"
       sha256 "${MO_MAC_AARCH64_SHA}"
