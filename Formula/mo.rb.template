@@ -29,6 +29,6 @@ class Mo < Formula
   end
 
   test do
-    assert_match "mo", shell_output("#{bin}/mo --version")
+    assert_match(/^mo \d+\.\d+\.\d+/, shell_output("#{bin}/mo --version"))
   end
 end
