@@ -1,6 +1,6 @@
 class Mo < Formula
   desc "Command-line client"
-  homepage "https://www.gomomento.com"
+  homepage "https://gomomento.ai"
 
   on_macos do
     if Hardware::CPU.intel?
