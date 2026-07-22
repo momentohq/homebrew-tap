@@ -1,6 +1,6 @@
 class Mo < Formula
   desc "Command-line client"
-  homepage "https://www.gomomento.com"
+  homepage "https://gomomento.ai"
 
   bottle do
     root_url "https://github.com/momentohq/homebrew-tap/releases/download/mo-0.67.0"
