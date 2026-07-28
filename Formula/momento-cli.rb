@@ -1,7 +1,6 @@
 class MomentoCli < Formula
   desc "Cli to interact with Momento services"
   homepage "https://github.com/momentohq/momento-cli"
-  version "0.56.2"
 
   bottle do
     root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.56.2"
