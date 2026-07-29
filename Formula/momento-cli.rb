@@ -1,6 +1,12 @@
 class MomentoCli < Formula
   desc "Cli to interact with Momento services"
   homepage "https://github.com/momentohq/momento-cli"
+  # Do not remove. The release assets put a "." before the arch triple
+  # (momento-cli-X.Y.Z.aarch64-apple-darwin.tar.gz), which Homebrew's URL version
+  # scanner mis-parses: "X.Y.Z.aarch64" on arm macOS, "86.64" on x86_64 Linux. That
+  # makes brew look for a bottle name that was never published. This is NOT the
+  # redundant-version case brew audit warns about; audit passes with it present.
+  version "0.56.2"
 
   bottle do
     root_url "https://github.com/momentohq/homebrew-tap/releases/download/momento-cli-0.56.2"
@@ -52,5 +58,9 @@ class MomentoCli < Formula
         zsh_completion.install "zsh/_momento"
       end
     end
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/momento --version")
   end
 end
