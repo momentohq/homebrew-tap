@@ -59,6 +59,8 @@ jobs:
           path: "*.bottle.*"
 
   label-pr:
+    permissions:
+      pull-requests: write
     name: Label pr pr-pull
     needs: test-bot
     runs-on: ubuntu-latest
@@ -68,4 +70,4 @@ jobs:
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'formula/')
         with:
           labels: pr-pull
-          github_token: ${{ secrets.MOMENTO_MACHINE_USER_GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
