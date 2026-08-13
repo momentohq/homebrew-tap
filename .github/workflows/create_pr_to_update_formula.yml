@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Generate release bot token
+      id: app-token
+      uses: actions/create-github-app-token@v3
+      with:
+        app-id: ${{ secrets.MOMENTO_RELEASE_APP_ID }}
+        private-key: ${{ secrets.MOMENTO_RELEASE_APP_PRIVATE_KEY }}
+
     - uses: actions/checkout@v4
     
     - name: pull-request
@@ -22,4 +29,4 @@ jobs:
         pr_label: "automation"
         pr_draft: false
         pr_allow_empty: true
-        github_token: ${{ secrets.MOMENTO_MACHINE_USER_GITHUB_TOKEN }}
+        github_token: ${{ steps.app-token.outputs.token }}

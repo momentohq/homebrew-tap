@@ -63,9 +63,19 @@ jobs:
     needs: test-bot
     runs-on: ubuntu-latest
     steps:
+      # publish.yml triggers on `pull_request_target: types: [labeled]` and gates on
+      # this label, and a label applied by GITHUB_TOKEN does not start a workflow run,
+      # so the bottling chain needs an app token here.
+      - name: Generate release bot token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.MOMENTO_RELEASE_APP_ID }}
+          private-key: ${{ secrets.MOMENTO_RELEASE_APP_PRIVATE_KEY }}
+
       - uses: actions-ecosystem/action-add-labels@v1
       # Only add this label to branches that update formulae in this repo
         if: github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'formula/')
         with:
           labels: pr-pull
-          github_token: ${{ secrets.MOMENTO_MACHINE_USER_GITHUB_TOKEN }}
+          github_token: ${{ steps.app-token.outputs.token }}
