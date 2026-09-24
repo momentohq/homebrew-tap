@@ -2,6 +2,12 @@ class Mo < Formula
   desc "Command-line client"
   homepage "https://gomomento.ai"
 
+  bottle do
+    root_url "https://github.com/momentohq/homebrew-tap/releases/download/mo-0.145.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:  "f07a258afc9d5b7a9c95e92c682b2501c816c86a6357d881f838535c85dd15eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "40e5e1870183c5ebcc82c3e13508f043b61456f215b9fade37418d11bb751565"
+  end
+
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.145.0/mo-0.145.0-x86_64-apple-darwin.tar.gz"
