@@ -47,8 +47,8 @@ class MomentoCli < Formula
       end
     end
   end
-end
 
- test do
-   assert_match(/^momento \d+\.\d+\.\d+/, shell_output("#{bin}/momento --version"))
- end
+  test do
+    assert_match(/^momento \d+\.\d+\.\d+/, shell_output("#{bin}/momento --version"))
+  end
+end
