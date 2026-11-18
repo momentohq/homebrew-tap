@@ -2,31 +2,25 @@ class Mo < Formula
   desc "Command-line client"
   homepage "https://gomomento.ai"
 
-  bottle do
-    root_url "https://github.com/momentohq/homebrew-tap/releases/download/mo-0.197.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:  "76536f2c2e146da299e4b5dd57ad3b20e294b861cbf4c6089142f0ad5c9dc29b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "91c8ec330d9f55710613b8598b11f521161d22c78dc0c1276fce8fa9e0d6aeee"
-  end
-
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.197.1/mo-0.197.1-x86_64-apple-darwin.tar.gz"
-      sha256 "135963dcd1497837120d6daa9d2bb2c86e00291ad233f7f60f5c64d4f4185b86"
+      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.198.0/mo-0.198.0-x86_64-apple-darwin.tar.gz"
+      sha256 "e7854842a85dd07cbc2d3c775e8f918ead68423d201c26976df5b1df2932769d"
     end
     if Hardware::CPU.arm?
-      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.197.1/mo-0.197.1-aarch64-apple-darwin.tar.gz"
-      sha256 "c97ce52a7d2c0e59436ab6667c33b9c9838344614a80883a88cfb3ecea750dac"
+      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.198.0/mo-0.198.0-aarch64-apple-darwin.tar.gz"
+      sha256 "7ae3a13ce6c12ef059ff4d2bd52d5da019a1ce7c48eded8c63aa3961eccf84fa"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.197.1/mo-0.197.1-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "95db69452b642979aa379ae7901386b8b854a03db19476976c9e5b38a245b4b5"
+      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.198.0/mo-0.198.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "b482006d545eff4b75b99cacfa32c13c47d8bd11b30319a06fe3ec0f6e343dc5"
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.197.1/mo-0.197.1-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "9613d5f7fb8119ffa6587b08ac97ef13fe1c080015ad5c91103629c0e1b99b91"
+      url "https://github.com/momentohq/homebrew-tap/releases/download/mo-src-0.198.0/mo-0.198.0-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "c664d959f41ae4e24c680d0990aa22096192c14afe81b1ea85c18f54a2507ca2"
     end
   end
 
